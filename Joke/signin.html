@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        /* Fullscreen black background */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        /* Form styling */
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: black;
+            padding: 30px;
+            width: 450px;
+            border-radius: 20px;
+            border: 2px solid red;
+            text-align: center;
+        }
+
+        .form label, 
+        .p, 
+        .span, 
+        .button-submit {
+            color: red;
+        }
+
+        /* Input fields */
+        .inputForm {
+            border: 1.5px solid red;
+            border-radius: 10px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            background-color: black;
+        }
+
+        .input {
+            margin-left: 10px;
+            border-radius: 10px;
+            border: none;
+            width: 85%;
+            height: 100%;
+            background-color: black;
+            color: red;
+        }
+
+        .input::placeholder {
+            color: red;
+        }
+
+        .input:focus {
+            outline: none;
+        }
+
+        /* Buttons */
+        .button-submit {
+            margin: 20px 0 10px 0;
+            background-color: black;
+            border: 1px solid red;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 10px;
+            height: 50px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .button-submit:hover {
+            background-color: red;
+            color: black;
+        }
+
+        /* Remove "Remember me" */
+    </style>
+</head>
+<body>
+
+   <!-- Centered login form -->
+   <form class="form" onsubmit="return validateForm()">
+      <div class="flex-column">
+         <label>Email</label>
+      </div>
+      <div class="inputForm">
+         <input type="text" class="input" id="email" placeholder="Enter your Email">
+      </div>
+      <div class="flex-column">
+         <label>Password</label>
+      </div>
+      <div class="inputForm">
+         <input type="password" class="input" id="password" placeholder="Enter your Password">
+      </div>
+      
+      <button type="submit" class="button-submit">Sign In</button>
+   </form>
+
+   <script>
+      function validateForm() {
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value.trim();
+
+          if (email === "" || password === "") {
+              alert("Please enter both email and password.");
+              return false;
+          }
+
+          // Redirect if validation passes
+          window.location.href = "page1.html";
+          return false; // Prevents actual form submission
+      }
+   </script>
+
+</body>
+</html>
