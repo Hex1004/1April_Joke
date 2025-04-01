@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // This function checks if all fields are filled out and enables/disables the register button
+        function validateForm() {
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const submitButton = document.getElementById('submitBtn');
+
+            // Enable the submit button only if all fields are filled out
+            if (username && email && password) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        }
+    </script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body, html {
+        height: 100%;
+        font-family: Arial, sans-serif;
+        background-image: url(360_F_332753934_tBacXEgxnVplFBRyKbCif49jh0Wz89ns.jpg); /* Add your image URL here */
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-container {
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #ffffff;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    input:focus {
+        border-color: #008CBA;
+        outline: none;
+    }
+
+    .submit-btn {
+        background-color: #008CBA;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .submit-btn:hover {
+        background-color: #005f73;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
+
+    /* Disabled button styling */
+    .submit-btn:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Join Our Cooking Community!</h2>
+            <form action="page1.html" method="POST" oninput="validateForm()">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="submit" class="submit-btn" id="submitBtn" disabled><a href="page1.html">Register</a></button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

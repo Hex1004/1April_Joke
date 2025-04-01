@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 April - Guess the Number</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        #timer {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        #gameOver {
+            display: none;
+            color: red;
+            font-size: 30px;
+            margin-top: 20px;
+        }
+
+        #endButton {
+            display: none;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #endButton:hover {
+            background-color: darkred;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005f73;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guess the Number Game!</h1>
+    <p>Guess the number between 1 and 100:</p>
+    <input type="number" id="userGuess" placeholder="Enter your guess" min="1" max="100">
+    <button onclick="checkGuess()">Submit Guess</button>
+    
+    <div id="timer">Time Left: 50s</div>
+
+    <div id="gameOver">Game Over! The correct number was: <span id="correctNumber"></span></div>
+
+    <button id="endButton" onclick="continueGame()">Continue</button>
+
+    <script>
+        let targetNumber = Math.floor(Math.random() * 100) + 1; // Random number between 1 and 100
+        const gameOverMessage = document.getElementById('gameOver');
+        const correctNumberText = document.getElementById('correctNumber');
+        const endButton = document.getElementById('endButton');
+        const userGuessInput = document.getElementById('userGuess');
+        const timerElement = document.getElementById('timer');
+        let timer = 50;
+        let timerInterval;
+        let attempts = 0;
+
+        // Start the countdown timer
+        function startTimer() {
+            timerInterval = setInterval(function() {
+                timer--;
+                timerElement.textContent = `Time Left: ${timer}s`;
+
+                if (timer <= 0) {
+                    clearInterval(timerInterval);
+                    gameOver();  // End game when time is up
+                }
+            }, 1000);
+        }
+
+        // Game Over Function - Triggered when the timer ends or game over conditions met
+        function gameOver() {
+            gameOverMessage.style.display = "block";
+            correctNumberText.textContent = targetNumber;
+            endButton.style.display = "block";  // Show continue button when game is over
+            userGuessInput.disabled = true;  // Disable input when game is over
+        }
+
+        // Function to check user's guess
+        function checkGuess() {
+            const userGuess = parseInt(userGuessInput.value);
+
+            if (!userGuess || userGuess < 1 || userGuess > 100) {
+                alert('Please enter a valid number between 1 and 100.');
+                return;
+            }
+
+            attempts++;  // Increment attempts on each guess
+
+            if (userGuess === targetNumber) {
+                clearInterval(timerInterval); // Stop the timer when the correct guess is made
+                gameOver();  // Trigger game over
+            } else if (attempts >= 1) {
+                alert('Wrong guess. Try again!');
+            }
+        }
+
+        // Function to continue the game (redirect or other action)
+        function continueGame() {
+            window.location.href = "page2.html"; // Redirect to another page or any action you want
+        }
+
+        // Start the game when the page loads
+        document.addEventListener("DOMContentLoaded", startTimer);
+    </script>
+
+</body>
+</html>

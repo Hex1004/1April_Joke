@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 April </title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        video {
+            width: 80vw; /* Made the video smaller */
+            height: 90vh;
+            object-fit: cover;
+        }
+
+        #endButton {
+            display: none;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #endButton:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <video id="videoPlayer" autoplay playsinline>
+        <source src="VID_20250401_130115.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <button id="endButton" onclick="closeTab()">Exit</button>
+
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const endButton = document.getElementById('endButton');
+
+        function enableAudio() {
+            video.muted = false;
+            video.play().catch(err => console.log("Playback error:", err));
+            document.removeEventListener("click", enableAudio);
+            document.removeEventListener("touchstart", enableAudio);
+        }
+
+        document.addEventListener("click", enableAudio);
+        document.addEventListener("touchstart", enableAudio);
+
+        video.addEventListener("ended", () => {
+            endButton.style.display = "block"; // Show button when video ends
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            video.play().catch(() => {
+                console.log("Autoplay blocked! User interaction required.");
+            });
+        });
+
+        function closeTab() {
+            window.open('', '_self', '');
+            window.close();
+        }
+    </script>
+
+</body>
+</html>

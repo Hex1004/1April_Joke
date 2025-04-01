@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time to play</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        video {
+            width: 80vw;
+            height: 80vh;
+            object-fit: cover;
+        }
+
+        #endButton {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #endButton:hover {
+            background-color: darkred;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <video id="videoPlayer" autoplay playsinline>
+        <source src="VID_20250401_192853.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <button id="endButton"><a href="sign_in.html">Continue</a></button>
+
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const button = document.getElementById('endButton');
+
+        function goFullscreen() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                document.documentElement.msRequestFullscreen();
+            }
+        }
+
+        function enableAudio() {
+            video.muted = false;
+            video.play().catch(err => console.log("Playback error:", err));
+            document.removeEventListener("click", enableAudio);
+            document.removeEventListener("touchstart", enableAudio);
+        }
+
+        // Ensure full-screen mode on load and interaction
+        document.addEventListener("DOMContentLoaded", () => {
+            goFullscreen();
+            video.play().catch(() => console.log("Autoplay blocked! User interaction required."));
+        });
+
+        document.addEventListener("click", () => {
+            goFullscreen();
+            enableAudio();
+        });
+
+        document.addEventListener("touchstart", () => {
+            goFullscreen();
+            enableAudio();
+        });
+
+        // Show the button when the video ends
+        video.addEventListener("ended", () => {
+            button.style.display = "block";
+        });
+
+        // 🔴 Prevent Leaving the Page - REMOVE THIS
+        // window.addEventListener("beforeunload", function(event) {
+        //     event.preventDefault();
+        //     return false;
+        // });
+
+        // 🔴 Disable Alt+F4 (only works in some cases)
+        document.addEventListener("keydown", function(event) {
+            if ((event.altKey && event.key === "F4") || event.key === "F12" || event.key === "Control") {
+                event.preventDefault();
+            }
+        });
+
+        // Disable Developer Tools (F12, Ctrl+Shift+I, Ctrl+Shift+J)
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "F12" || 
+                (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J")) || 
+                (event.ctrlKey && event.key === "U")) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+</html>
